@@ -20,8 +20,11 @@ namespace GoogleCalendarAnalyzer
                 double summary = events.Sum(@event => (@event.DtEnd.AsSystemLocal - @event.Start.AsSystemLocal).TotalMinutes);
                 int hours = (int) (summary/60);
                 int minutes = (int) summary - (hours*60);
-                Console.WriteLine($"{hours}:{minutes}");
-                Console.ReadKey();
+                if (hours + minutes > 0)
+                {
+                    Console.WriteLine($"{hours}:{minutes}");
+                    Console.ReadKey();
+                }
             }
         }
     }
