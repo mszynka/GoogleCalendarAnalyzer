@@ -27,11 +27,20 @@ namespace GoogleCalendarAnalyzer
                 int minutes = (int) summary - (hours*60);
 
                 const int hours2 = 248;
+
+                var minutesOver = summary - (hours2 * 60);
+                var days4hd = minutesOver / 240;
+                var days8hd = minutesOver / 480;
+
                 if (hours + minutes > 0)
                 {
                     Console.WriteLine($"Time in calendar: {hours}:{minutes}");
                     
                     Console.WriteLine($"Time in timespan: {hours2}:{0}");
+
+                    Console.WriteLine($"Days over (4hd): {days4hd:2}");
+
+                    Console.WriteLine($"Days over (8hd): {days8hd:2}");
                     Console.ReadKey();
                 }
             }
