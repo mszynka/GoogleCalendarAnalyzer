@@ -8,7 +8,7 @@ namespace GoogleCalendarAnalyzer
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var files = Directory.GetFiles("../../Data/").Where(x => x.EndsWith(".ics")).ToList();
             foreach (var file in files)
@@ -29,8 +29,8 @@ namespace GoogleCalendarAnalyzer
                 const int hours2 = 248;
 
                 var minutesOver = summary - (hours2 * 60);
-                var days4hd = minutesOver / 240;
-                var days8hd = minutesOver / 480;
+                var days4Hd = minutesOver / 240;
+                var days8Hd = minutesOver / 480;
 
                 if (hours + minutes > 0)
                 {
@@ -38,9 +38,9 @@ namespace GoogleCalendarAnalyzer
                     
                     Console.WriteLine($"Time in timespan: {hours2}:{0}");
 
-                    Console.WriteLine($"Days over (4hd): {days4hd:2}");
+                    Console.WriteLine($"Days over (4hd): {days4Hd}");
 
-                    Console.WriteLine($"Days over (8hd): {days8hd:2}");
+                    Console.WriteLine($"Days over (8hd): {days8Hd}");
                     Console.ReadKey();
                 }
             }
