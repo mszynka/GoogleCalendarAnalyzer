@@ -60,9 +60,9 @@ namespace GoogleCalendarAnalyzer
 
             var filename = @"../../Data/" + remoteUrl.Split('/').Last();
             var myWebClient = new WebClient();
-            Console.WriteLine($"Downloading File \"{filename}\" from \"https://calendar.google.com/...\" .......\n\n");
+            Console.WriteLine($"Downloading File \"{filename.Split('/').Last()}\" from \"https://calendar.google.com/...\" .......");
             myWebClient.DownloadFile(remoteUrl, filename);
-            Console.WriteLine($"Successfully Downloaded File \"{filename}\" from \"https://calendar.google.com/...\"");
+            Console.WriteLine($"Successfully Downloaded File \"{filename.Split('/').Last()}\" from \"https://calendar.google.com/...\"");
         }
 
         private static double GetTotalMinutes(IEvent @event)
