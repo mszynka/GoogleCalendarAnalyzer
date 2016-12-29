@@ -385,3 +385,5 @@ __pycache__/
 build/
 
 [Dd]ata/
+
+config.txt

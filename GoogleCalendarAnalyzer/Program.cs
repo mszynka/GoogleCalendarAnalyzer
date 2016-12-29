@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using Ical.Net;
 using Ical.Net.Interfaces.Components;
 
@@ -10,6 +11,8 @@ namespace GoogleCalendarAnalyzer
     {
         private static void Main()
         {
+            DownloadFileFromRemote();
+
             var files = Directory.GetFiles("../../Data/").Where(x => x.EndsWith(".ics")).ToList();
             foreach (var file in files)
             {
@@ -44,6 +47,22 @@ namespace GoogleCalendarAnalyzer
                     Console.ReadKey();
                 }
             }
+        }
+
+        private static void DownloadFileFromRemote()
+        {
+            string remoteUrl;
+            using (var sr = new StreamReader("../../config.txt"))
+            {
+                var line = sr.ReadToEnd();
+                remoteUrl = line;
+            }
+
+            var filename = @"../../Data/" + remoteUrl.Split('/').Last();
+            var myWebClient = new WebClient();
+            Console.WriteLine($"Downloading File \"{filename}\" from \"https://calendar.google.com/...\" .......\n\n");
+            myWebClient.DownloadFile(remoteUrl, filename);
+            Console.WriteLine($"Successfully Downloaded File \"{filename}\" from \"https://calendar.google.com/...\"");
         }
 
         private static double GetTotalMinutes(IEvent @event)
