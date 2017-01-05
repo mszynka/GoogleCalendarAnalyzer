@@ -22,10 +22,12 @@ namespace GoogleCalendarAnalyzer
                 var endDate = new DateTime(2017, 2, 28);
 
                 var events = firstCalendar.Events
-                    .Where(x => x.DtEnd.AsSystemLocal >= startDate && x.DtEnd.AsSystemLocal <= endDate )
+                    //TODO: check date range
+                    .Where(x => x.DtEnd.AsUtc >= startDate && x.DtEnd.AsUtc <= endDate )
                     .Where(x => string.Equals(x.Summary, "Praca", StringComparison.InvariantCultureIgnoreCase));
 
-                double summary = events.Sum(@event => GetTotalMinutes(@event) + @event.GetOccurrences(startDate, endDate).Sum(x => x.Period.Duration.TotalMinutes));
+                // 289 vs 293
+                double summary = firstCalendar.Events.Sum(e => e.GetOccurrences(startDate, endDate).Sum(x => x.Period.Duration.TotalMinutes));//events.Sum(e => GetTotalMinutes(e)) + 
                 int hours = (int) (summary/60);
                 int minutes = (int) summary - (hours*60);
 
@@ -67,7 +69,7 @@ namespace GoogleCalendarAnalyzer
 
         private static double GetTotalMinutes(IEvent @event)
         {
-            return  GetTotalMinutes(@event.Start.AsSystemLocal, @event.DtEnd.AsSystemLocal);
+            return  GetTotalMinutes(@event.Start.AsUtc, @event.DtEnd.AsUtc);
         }
 
         private static double GetTotalMinutes(DateTime start, DateTime end)
