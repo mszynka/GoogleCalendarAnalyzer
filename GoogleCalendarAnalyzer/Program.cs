@@ -23,11 +23,11 @@ namespace GoogleCalendarAnalyzer
 
                 var events = firstCalendar.Events
                     //TODO: check date range
-                    .Where(x => x.DtEnd.AsUtc >= startDate && x.DtEnd.AsUtc <= endDate )
+                    //.Where(x => x.DtEnd.AsUtc >= startDate && x.DtEnd.AsUtc <= endDate )
                     .Where(x => string.Equals(x.Summary, "Praca", StringComparison.InvariantCultureIgnoreCase));
 
                 // 289 vs 293
-                double summary = firstCalendar.Events.Sum(e => e.GetOccurrences(startDate, endDate).Sum(x => x.Period.Duration.TotalMinutes));//events.Sum(e => GetTotalMinutes(e)) + 
+                double summary = events.Sum(e => e.GetOccurrences(startDate, endDate).Sum(x => x.Period.Duration.TotalMinutes));//events.Sum(e => GetTotalMinutes(e)) + 
                 int hours = (int) (summary/60);
                 int minutes = (int) summary - (hours*60);
 
